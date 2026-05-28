@@ -1,113 +1,137 @@
-# Globopersona - Email Outreach & Warmup Engine
+<div align="center">
+  <img src="https://raw.githubusercontent.com/ayush-ranjan9135/360Airo/main/public/logo.png" alt="360Airo Logo" width="120" height="120" />
+  
+  # 🚀 360Airo - Enterprise Outbound Automation
+  
+  **Supercharge your outreach sequences with context-aware AI, smart deliverability, and omnichannel engagement.**
+  
+  [![Next.js](https://img.shields.io/badge/Next.js-16.2-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+  [![React](https://img.shields.io/badge/React-18-blue?style=for-the-badge&logo=react)](https://reactjs.org/)
+  [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+  [![Framer Motion](https://img.shields.io/badge/Framer_Motion-11-ff0055?style=for-the-badge&logo=framer)](https://www.framer.com/motion/)
+  [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+</div>
 
-A premium, production-grade B2B SaaS outreach and deliverability monitoring platform built using Next.js 16 (App Router), TypeScript, and Tailwind CSS v4.
+<br />
 
-Designed with inspiration from top-tier SaaS products like Linear, Notion, Resend, and Superhuman to provide clean typography rhythm, high-contrast layouts, spacious tables, and micro-animations.
+## 🎯 Problem Statement
+In the modern B2B sales environment, generic cold outreach is dead. Sales teams struggle with:
+- **Poor Deliverability:** Emails landing in spam folders due to low domain reputation.
+- **Low Engagement:** Generic, non-personalized emails failing to capture prospect attention.
+- **Fragmented Workflows:** Managing email sequences, LinkedIn outreach, and CRM pipelines across multiple disconnected tools.
+- **Lack of Actionable Data:** Inability to track real-time open rates, click rates, and prospect intent signals effectively.
 
----
+## 💡 The Solution: 360Airo
+**360Airo** is a unified, AI-driven outbound automation platform designed to solve the modern outreach crisis. It combines smart email warmup, AI-personalized sequencing, omnichannel LinkedIn integration, and a master inbox into a single, beautifully designed dashboard.
 
-## 🚀 Tech Stack
-
-- **Framework**: Next.js 16.2.6 (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS v4.0.0
-- **Animations**: Framer Motion
-- **Icons**: Lucide React
-- **Charts**: Recharts (with client-side hydration safeguards)
-- **State & Access Controls**: Native Client React Context + LocalStorage persistence
-
----
-
-## 🛠 Features Rebuilt
-
-1. **Authentication Shell (`/auth`)**:
-   - Gorgeous split-screen auth deck highlighting outreach deliverability metrics.
-   - Flow switcher: Sign In, Sign Up, Forgot Password, and the specialized **Pending Approval** review card.
-   - Demo credentials helper to easily auto-fill specified parameters:
-     - **Email**: `ayushranjan9531@gmail.com`
-     - **Password**: `Ayush@123`
-
-2. **Core Layout Shell**:
-   - Collapsible navigation Sidebar with active status highlights and team switchers.
-   - Top Nav displaying notification drops, profile settings, and Command Bar trigger points.
-   - Command Bar (`Ctrl + K`) overlay permitting Raycast-style page jumps and actions.
-
-3. **Workspace Dashboard (`/`)**:
-   - Outbound analytics metrics (sent, open rate, replies rate, deliverability %).
-   - Multi-line Area performance chart detailing emails sent and opened over time.
-   - Real-time deliverability diagnostic logs feed and setup health checklist.
-   - B2B Outreach Launchpad.
-
-4. **Campaign Control Console (`/campaigns`)**:
-   - Main campaign tracking table displaying delivery statuses, sent counts, and engagement percentages.
-   - Multiselect table checkbars with bulk execution panels (pause, resume, delete).
-   - Dynamic search inputs and status filter tabs.
-
-5. **Outreach sequence Builder (`/campaigns/create`)**:
-   - Stepper wizard guiding through Details -> Sequence -> Audience -> Schedule.
-   - Write sequence editor supporting custom stage delays, multiple email steps, and **AI content generator prompts**.
-   - Side-by-side live email preview rendering merge tokens (`{{firstName}}`, `{{companyName}}`) dynamically.
-   - Throttling delivery caps, schedule slots, and warmup toggle switches.
-
-6. **Lead Manager CRM (`/prospects`)**:
-   - Contact database detailing prospect names, job titles, companies, engagement tags, and active status levels.
-   - Sliding detail drawer displaying a granular logs timeline and a workspace notes text editor.
-
-7. **Domains & Warmup Monitor (`/mailboxes`)**:
-   - Connected mailboxes overview with health percentage dials and warmup flame icons.
-   - DNS checklist verifying MX, SPF, DKIM, DMARC, and white-labeled Tracking records.
-   - "Connect Mailbox" dialog verification screen for SMTP/IMAP credentials.
-
-8. **Settings Panel (`/settings`)**:
-   - Form controls to modify profile settings and organization quotas.
-   - Copy-to-clipboard API token lists with responsive status verification states.
-   - CRM Integrations card deck (Hubspot, Salesforce, Zapier).
+With 360Airo, growth teams can scale their outreach infinitely while maintaining the hyper-personalized touch of a 1-on-1 conversation.
 
 ---
 
-## 📂 Project Structure
+## 🏗️ System Architecture
 
-```
-src/
-├── app/                      # Next.js App Router route groups
-│   ├── (dashboard)/          # Dashboard pages shell (Layout, Dashboard, Campaigns, CRM, etc.)
-│   │   ├── layout.tsx        # Coordinates Sidebar and TopNav shell
-│   │   ├── page.tsx          # Analytics dashboard
-│   │   ├── campaigns/        # Queue lists and detail logs
-│   │   ├── prospects/        # Leads database & drawers
-│   │   ├── mailboxes/        # Warmup hubs & DNS checklists
-│   │   └── settings/         # API Keys & CRM syncing
-│   ├── auth/                 # Split-screen Auth layout (Sign In, Sign Up, Forgot, Pending)
-│   ├── globals.css           # Tailwind v4 directives and design variables
-│   └── layout.tsx            # HTML wrappers and session providers
-├── components/               # Custom UI primitives
-│   ├── ui/                   # Reusable components (Button, Input, Card, Table, Tabs, Badge, Tooltip, Dialog, Skeleton, EmptyState)
-│   └── layout/               # Shared components (Sidebar, TopNav, CommandBar)
-├── lib/                      # Helper libraries
-│   ├── utils.ts              # Class name merger helper
-│   └── auth-context.tsx      # Auth session provider
-```
+\`\`\`mermaid
+graph TD
+    A[Client UI - Next.js] -->|REST / GraphQL| B(API Layer)
+    A -->|State Management| C{React Context}
+    
+    C --> D[Auth Context]
+    C --> E[Theme Context]
+    
+    B --> F[Campaign Engine]
+    B --> G[AI Personalization Service]
+    B --> H[LinkedIn Sync Service]
+    
+    F --> I[(PostgreSQL Database)]
+    G --> J[OpenAI / LLM API]
+    H --> K[LinkedIn API]
+    
+    subgraph Frontend Architecture
+    A
+    C
+    D
+    E
+    end
+    
+    subgraph Backend Services
+    B
+    F
+    G
+    H
+    end
+\`\`\`
 
 ---
 
-## 🏃‍♂️ Getting Started
+## 🌊 Application Flow
 
-First, install the local packages:
+1. **Onboarding & Auth:** Users securely log in and connect their email domains.
+2. **Deliverability Guard (Warmup):** Connected domains enter the automated warmup pool to build reputation.
+3. **Prospect Ingestion:** Users import leads (CSV or CRM integration) into the "Email Lists" module.
+4. **Campaign Creation:** 
+   - Select manual or **AI-driven** generation.
+   - AI analyzes prospect data and generates hyper-personalized email sequences.
+5. **Omnichannel Execution:** The engine executes the campaign, syncing LinkedIn touches (visits, connection requests) with email steps.
+6. **Master Inbox & Pipeline:** All prospect replies route to the Master Inbox. Positive intent signals automatically move leads to the Kanban Pipeline for closing.
 
-```bash
-npm install --legacy-peer-deps
-```
+---
 
-Then, run the local development server:
+## 🛠️ Tech Stack
 
-```bash
-npm run dev
-```
+### Frontend & UI
+- **Framework:** Next.js (App Router, Turbopack)
+- **Library:** React 18
+- **Styling:** Tailwind CSS (Custom Design System, Dark Mode)
+- **Animations:** Framer Motion (Spring Physics, Layout Animations)
+- **Charts:** Recharts
+- **Icons:** Lucide React & React Icons
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to experience the redesigned platform.
+### Core Features Built
+- 📊 **Dynamic Dashboards:** Interactive metric cards and real-time activity feeds.
+- 🎨 **Premium UI/UX:** Glassmorphism, 3D tilt cards, advanced hover states, and staggered micro-animations.
+- 🌓 **Theme Management:** Fully responsive Light/Dark mode implementation.
+- 📱 **Responsive Layout:** Sidebar toggling, mobile-first design considerations.
+- ⚙️ **CRUD Interfaces:** Robust state management for Pipeline Kanban boards, Campaign tables, and Inbox messages.
 
-To build the optimized production bundle:
+---
 
-```bash
-npm run build
-```
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js (v18+)
+- npm or pnpm
+
+### Installation
+
+1. Clone the repository:
+   \`\`\`bash
+   git clone https://github.com/ayush-ranjan9135/360Airo.git
+   cd 360Airo
+   \`\`\`
+
+2. Install dependencies:
+   \`\`\`bash
+   npm install
+   \`\`\`
+
+3. Run the development server:
+   \`\`\`bash
+   npm run dev
+   \`\`\`
+
+4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+---
+
+## 👨‍💻 Let's Connect!
+
+Built with ❤️ by **Ayush Ranjan**
+
+[![Portfolio](https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://alpha-portfolio-five.vercel.app/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ayush-ranjan-9135d3/)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ayush-ranjan9135)
+[![Instagram](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/ayush.__.srivastava?igsh=dW1zdHFjcTZnenV2)
+[![Facebook](https://img.shields.io/badge/Facebook-1877F2?style=for-the-badge&logo=facebook&logoColor=white)](https://www.facebook.com/share/1AhB4q1WeW/)
+
+---
+*If you like this project, please consider giving it a ⭐ on GitHub!*
