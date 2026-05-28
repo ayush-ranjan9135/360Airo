@@ -1701,25 +1701,40 @@ export default function LandingPage() {
 
         <div className="max-w-5xl mx-auto px-6 py-24 relative">
           {/* Main CTA card */}
-          <div className={`relative rounded-3xl border ${bdr} backdrop-blur-xl overflow-hidden ${
+          <motion.div 
+          whileHover={{ y: -4, boxShadow: isDark ? "0 20px 40px -15px rgba(0,0,0,0.5)" : "0 25px 50px -12px rgba(0,0,0,0.15)" }}
+          transition={{ type: "spring", stiffness: 400, damping: 25 }}
+          className={`relative rounded-3xl border ${bdr} backdrop-blur-xl overflow-hidden ${
             isDark ? "bg-gradient-to-br from-white/[0.04] via-white/[0.02] to-transparent" : "bg-white shadow-xl"
-          }`}>
+          }`}
+        >
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent" />
 
             <div className="px-8 py-14 md:px-16 md:py-16">
-              <div className="grid md:grid-cols-2 gap-12 items-center">
+              <motion.div 
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, margin: "-100px" }}
+                variants={{
+                  hidden: {},
+                  show: { transition: { staggerChildren: 0.1 } }
+                }}
+                className="grid md:grid-cols-2 gap-12 items-center"
+              >
 
                 {/* Left: copy */}
                 <div className="space-y-6 text-left">
-                  <Badge variant="outline" className="text-purple-600 border-purple-500/30 bg-purple-500/8 text-[10px] uppercase tracking-wider font-mono">✦ Start for free · No credit card</Badge>
-                  <div className="space-y-3">
+                  <motion.div variants={{ hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 350, damping: 25 } } }}>
+                    <Badge variant="outline" className="text-purple-600 border-purple-500/30 bg-purple-500/8 text-[10px] uppercase tracking-wider font-mono">✦ Start for free · No credit card</Badge>
+                  </motion.div>
+                  <motion.div variants={{ hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 350, damping: 25 } } }} className="space-y-3">
                     <h2 className={`text-3xl md:text-4xl font-extrabold leading-tight tracking-tight ${tx}`}>
                       Ready to hit the
                       <span className="block bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 bg-clip-text text-transparent">primary inbox?</span>
                     </h2>
                     <p className={`text-sm leading-relaxed max-w-sm ${txm}`}>Set up warmup nodes in 5 minutes, launch AI-personalized sequences, and watch your reply rates climb.</p>
-                  </div>
-                  <div className="flex flex-wrap gap-3">
+                  </motion.div>
+                  <motion.div variants={{ hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 350, damping: 25 } } }} className="flex flex-wrap gap-3">
                     {[
                       { icon: ShieldCheck, label: "99.4% deliverability", color: "text-emerald-600" },
                       { icon: Zap,         label: "5-min setup",          color: "text-amber-600"  },
@@ -1730,8 +1745,8 @@ export default function LandingPage() {
                         <span>{label}</span>
                       </div>
                     ))}
-                  </div>
-                  <div className="flex flex-col sm:flex-row gap-3 pt-1">
+                  </motion.div>
+                  <motion.div variants={{ hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 350, damping: 25 } } }} className="flex flex-col sm:flex-row gap-3 pt-1">
                     <Link href="/auth">
                       <Button variant="premium" className="h-11 px-7 text-sm font-bold flex items-center gap-2 cursor-pointer w-full sm:w-auto">
                         <Sparkles className="h-4 w-4" />Get Started Free<ArrowRight className="h-4 w-4" />
@@ -1742,12 +1757,12 @@ export default function LandingPage() {
                         isDark ? "border-white/10 hover:border-white/20 text-slate-300 hover:text-white" : "border-slate-300 text-slate-600 hover:text-slate-900"
                       }`}>Explore 360Airo</Button>
                     </a>
-                  </div>
+                  </motion.div>
                 </div>
 
                 {/* Right: stats + checklist */}
                 <div className="space-y-4">
-                  <div className="grid grid-cols-3 gap-3">
+                  <motion.div variants={{ hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 350, damping: 25 } } }} className="grid grid-cols-3 gap-3">
                     {[
                       { value: "99.4%", label: "Avg Deliverability", color: "text-emerald-600" },
                       { value: "5.2x",  label: "Reply Multiplier",   color: "text-purple-600" },
@@ -1758,8 +1773,8 @@ export default function LandingPage() {
                         <span className={`text-[9px] uppercase tracking-wider font-mono block mt-1 leading-tight ${txd}`}>{s.label}</span>
                       </div>
                     ))}
-                  </div>
-                  <div className={`rounded-2xl border ${bdr} ${bgS} p-5 space-y-3`}>
+                  </motion.div>
+                  <motion.div variants={{ hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 350, damping: 25 } } }} className={`rounded-2xl border ${bdr} ${bgS} p-5 space-y-3`}>
                     <span className={`text-[10px] font-bold uppercase tracking-widest font-mono ${txd}`}>What you get on day 1</span>
                     <div className="space-y-2.5">
                       {["AI-powered email sequence builder","Smart warmup engine for all mailboxes","Real-time DNS & deliverability checker","54 proven outreach templates","Pipedrive & Zapier integrations","Sales pipeline Kanban board"].map((item) => (
@@ -1771,8 +1786,8 @@ export default function LandingPage() {
                         </div>
                       ))}
                     </div>
-                  </div>
-                  <div className={`flex items-center justify-between px-4 py-3 rounded-xl border ${bdrS} ${bgS}`}>
+                  </motion.div>
+                  <motion.div variants={{ hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 350, damping: 25 } } }} whileHover={{ scale: 1.02 }} className={`flex items-center justify-between px-4 py-3 rounded-xl border ${bdrS} ${bgS} cursor-pointer`}>
                     <div className="flex -space-x-2">
                       {["A","B","C","D","E"].map((l, i) => (
                         <div key={i} className={`h-7 w-7 rounded-full border-2 flex items-center justify-center text-[9px] font-black text-white ${
@@ -1784,11 +1799,11 @@ export default function LandingPage() {
                       <span className={`text-[11px] font-bold block ${tx}`}>Join 2,400+ teams</span>
                       <span className={`text-[9px] font-mono ${txd}`}>already scaling outreach</span>
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
-              </div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 

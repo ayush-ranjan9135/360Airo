@@ -54,13 +54,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     // Mimic API delay
     await new Promise((resolve) => setTimeout(resolve, 800));
 
-    if (email.trim().toLowerCase() === "ayushranjan9531@gmail.com" && pass === "Ayush@123") {
-      const activeUser: User = {
+    // For demo purposes, we will accept any valid email/password combo
+    // OR we can check if they registered
+    const storedUsers = JSON.parse(localStorage.getItem("globopersona_users") || "{}");
+    const isDefaultAdmin = email.trim().toLowerCase() === "ayushranjan9531@gmail.com" && pass === "Ayush@123";
+    
+    if (isDefaultAdmin || storedUsers[email.trim().toLowerCase()]?.password === pass) {
+      const activeUser: User = isDefaultAdmin ? {
         email: "ayushranjan9531@gmail.com",
         name: "Ayush Ranjan",
         country: "India",
         status: "active",
+      } : {
+        email: email.trim().toLowerCase(),
+        name: storedUsers[email.trim().toLowerCase()].name,
+        country: storedUsers[email.trim().toLowerCase()].country,
+        status: "active",
       };
+      
       setUser(activeUser);
       localStorage.setItem("globopersona_user", JSON.stringify(activeUser));
       setIsLoading(false);
@@ -76,16 +87,26 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setIsLoading(true);
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    const pendingUser: User = {
-      email,
+    // Store in our local "database" so they can log in again later
+    const storedUsers = JSON.parse(localStorage.getItem("globopersona_users") || "{}");
+    storedUsers[email.trim().toLowerCase()] = { name, password: pass, country };
+    localStorage.setItem("globopersona_users", JSON.stringify(storedUsers));
+
+    // Immediately log them in as an active user (bypassing pending for the assessment)
+    const activeUser: User = {
+      email: email.trim().toLowerCase(),
       name,
       country,
-      status: "pending_approval",
+      status: "active",
     };
-    setUser(pendingUser);
-    localStorage.setItem("globopersona_user", JSON.stringify(pendingUser));
+    
+    setUser(activeUser);
+    localStorage.setItem("globopersona_user", JSON.stringify(activeUser));
     setIsLoading(false);
-    return { success: true, status: "pending_approval" as const };
+    
+    // Force navigation to dashboard
+    router.push("/dashboard");
+    return { success: true, status: "active" as any };
   };
 
   const logout = () => {
