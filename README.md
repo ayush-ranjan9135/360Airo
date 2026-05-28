@@ -30,7 +30,7 @@ With 360Airo, growth teams can scale their outreach infinitely while maintaining
 
 ## 🏗️ System Architecture
 
-\`\`\`mermaid
+```mermaid
 graph TD
     A[Client UI - Next.js] -->|REST / GraphQL| B(API Layer)
     A -->|State Management| C{React Context}
@@ -59,7 +59,7 @@ graph TD
     G
     H
     end
-\`\`\`
+```
 
 ---
 
@@ -104,20 +104,20 @@ graph TD
 ### Installation
 
 1. Clone the repository:
-   \`\`\`bash
+   ```bash
    git clone https://github.com/ayush-ranjan9135/360Airo.git
    cd 360Airo
-   \`\`\`
+   ```
 
 2. Install dependencies:
-   \`\`\`bash
+   ```bash
    npm install
-   \`\`\`
+   ```
 
 3. Run the development server:
-   \`\`\`bash
+   ```bash
    npm run dev
-   \`\`\`
+   ```
 
 4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
