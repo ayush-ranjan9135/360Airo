@@ -31,6 +31,28 @@ const Field = React.memo(function Field({
   icon, rightNode, required, autoComplete, optional, subHint, t,
 }: FieldProps) {
   const [focused, setFocused] = React.useState(false);
+
+  const handleKeyDown = React.useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const form = e.currentTarget.form;
+      if (form) {
+        const elements = Array.from(form.elements) as HTMLElement[];
+        const focusable = elements.filter(el => 
+          (el.tagName === "INPUT" || el.tagName === "BUTTON" || el.tagName === "SELECT") && 
+          !el.hidden && 
+          !(el as HTMLInputElement).disabled
+        );
+        const index = focusable.indexOf(e.currentTarget);
+        if (index > -1 && index < focusable.length - 1) {
+          focusable[index + 1].focus();
+        } else if (index === focusable.length - 1) {
+          form.requestSubmit();
+        }
+      }
+    }
+  }, []);
+
   return (
     <div className="flex flex-col gap-1.5">
       <label htmlFor={id} style={{ color: t.text, transition: TS }}
@@ -53,6 +75,7 @@ const Field = React.memo(function Field({
           onChange={(e) => onChange(e.target.value)}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
+          onKeyDown={handleKeyDown}
           placeholder={placeholder}
           required={required}
           autoComplete={autoComplete}
@@ -77,6 +100,28 @@ const SelectField = React.memo(function SelectField({ label, id, value, onChange
   label: string; id: string; value: string; onChange: (v: string) => void; options: string[]; t: T;
 }) {
   const [focused, setFocused] = React.useState(false);
+
+  const handleKeyDown = React.useCallback((e: React.KeyboardEvent<HTMLSelectElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const form = e.currentTarget.form;
+      if (form) {
+        const elements = Array.from(form.elements) as HTMLElement[];
+        const focusable = elements.filter(el => 
+          (el.tagName === "INPUT" || el.tagName === "BUTTON" || el.tagName === "SELECT") && 
+          !el.hidden && 
+          !(el as HTMLInputElement).disabled
+        );
+        const index = focusable.indexOf(e.currentTarget);
+        if (index > -1 && index < focusable.length - 1) {
+          focusable[index + 1].focus();
+        } else if (index === focusable.length - 1) {
+          form.requestSubmit();
+        }
+      }
+    }
+  }, []);
+
   return (
     <div className="flex flex-col gap-1.5 flex-1">
       <label htmlFor={id} style={{ color: t.text, transition: TS }} className="text-[13px] font-bold tracking-wide select-none">{label}</label>
@@ -89,6 +134,7 @@ const SelectField = React.memo(function SelectField({ label, id, value, onChange
       }} className="relative flex items-center rounded-xl">
         <select id={id} value={value} onChange={(e) => onChange(e.target.value)}
           onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}
+          onKeyDown={handleKeyDown}
           style={{ color: t.text, background: "transparent" } as React.CSSProperties}
           className="w-full h-[48px] pl-3.5 pr-8 text-[14px] font-medium outline-none appearance-none cursor-pointer">
           {options.map((o) => (
@@ -110,6 +156,27 @@ const LocationAutoField = React.memo(function LocationAutoField({
   const [detecting, setDetecting] = React.useState(false);
   const [geoError, setGeoError] = React.useState("");
   const [focused, setFocused] = React.useState(false);
+
+  const handleKeyDown = React.useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const form = e.currentTarget.form;
+      if (form) {
+        const elements = Array.from(form.elements) as HTMLElement[];
+        const focusable = elements.filter(el => 
+          (el.tagName === "INPUT" || el.tagName === "BUTTON" || el.tagName === "SELECT") && 
+          !el.hidden && 
+          !(el as HTMLInputElement).disabled
+        );
+        const index = focusable.indexOf(e.currentTarget);
+        if (index > -1 && index < focusable.length - 1) {
+          focusable[index + 1].focus();
+        } else if (index === focusable.length - 1) {
+          form.requestSubmit();
+        }
+      }
+    }
+  }, []);
 
   const detect = React.useCallback(async () => {
     if (!navigator.geolocation) { setGeoError("Geolocation not supported by your browser."); return; }
@@ -169,6 +236,7 @@ const LocationAutoField = React.memo(function LocationAutoField({
           onChange={(e) => { setGeoError(""); onChange(e.target.value); }}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
+          onKeyDown={handleKeyDown}
           style={{ color: t.text, background: "transparent" } as React.CSSProperties}
           className="flex-1 h-[48px] text-[14px] font-medium outline-none placeholder:text-slate-500"
         />

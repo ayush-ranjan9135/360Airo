@@ -11,7 +11,11 @@ import {
   Moon,
   Sun,
   LogOut,
-  Settings
+  Settings,
+  User,
+  CreditCard,
+  Link2,
+  HelpCircle
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -112,7 +116,7 @@ export function TopNav({ onSearchClick, onMobileMenuToggle }: TopNavProps) {
         {/* Theme Toggle Pill Switch */}
         <button 
           onClick={toggle}
-          className="h-7 w-12 rounded-full bg-slate-200 dark:bg-slate-850 p-0.5 flex items-center transition-all cursor-pointer relative shadow-inner border border-slate-300 dark:border-slate-800"
+          className="h-7 w-12 rounded-full bg-slate-200 dark:bg-slate-800 p-0.5 flex items-center transition-all cursor-pointer relative shadow-inner border border-slate-300 dark:border-slate-800"
           title="Toggle Mode"
         >
           <div className={cn(
@@ -129,7 +133,7 @@ export function TopNav({ onSearchClick, onMobileMenuToggle }: TopNavProps) {
 
         {/* Notification Bell */}
         <button
-          className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-850 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer relative"
+          className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer relative"
         >
           <Bell className="h-4.5 w-4.5" />
           <span className="absolute top-1 right-1 h-1.5 w-1.5 rounded-full bg-blue-500" />
@@ -139,7 +143,7 @@ export function TopNav({ onSearchClick, onMobileMenuToggle }: TopNavProps) {
         <div className="relative">
           <button
             onClick={() => setShowProfileMenu(!showProfileMenu)}
-            className="flex items-center space-x-2.5 p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-850 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer"
+            className="flex items-center space-x-2.5 p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer"
           >
             {/* Blue Square Avatar with letter 'A' */}
             <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-600 text-white font-extrabold text-xs shadow-md shadow-blue-500/10">
@@ -158,28 +162,42 @@ export function TopNav({ onSearchClick, onMobileMenuToggle }: TopNavProps) {
                 className="fixed inset-0 z-30" 
                 onClick={() => setShowProfileMenu(false)}
               />
-              <div className="absolute right-0 mt-2 w-56 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#090e1a] shadow-2xl p-1.5 z-40 animate-in fade-in slide-in-from-top-2 duration-150">
-                <div className="px-3 py-2 border-b border-slate-100 dark:border-slate-850 mb-1 leading-snug text-left">
-                  <p className="font-semibold text-xs text-slate-900 dark:text-white">{user?.name || "Ayush Ranjan"}</p>
-                  <p className="text-[10px] text-slate-500 dark:text-slate-400 truncate">{user?.email || "ayushranjan9531@gmail.com"}</p>
+              <div className="absolute right-0 mt-2 w-[220px] rounded-lg border border-slate-200 dark:border-[#2A314A] bg-white dark:bg-[#1C2136] shadow-2xl z-40 animate-in fade-in slide-in-from-top-2 duration-150 overflow-hidden">
+                <div className="px-4 py-3 border-b border-slate-100 dark:border-[#2A314A] leading-snug text-left">
+                  <p className="font-bold text-sm text-slate-900 dark:text-white">{user?.name || "Ayush Ranjan"}</p>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 truncate">{user?.email || "ayushranjan9531@gmail.com"}</p>
                 </div>
-                <div className="space-y-0.5">
-                  <button 
-                    onClick={() => {
-                      setShowProfileMenu(false);
-                      window.location.href = "/dashboard/settings";
-                    }}
-                    className="w-full flex items-center space-x-2 px-3 py-2 rounded-lg text-xs text-slate-600 dark:text-slate-350 hover:bg-slate-100 dark:hover:bg-slate-850 hover:text-slate-900 dark:hover:text-white transition-colors text-left cursor-pointer"
-                  >
-                    <Settings className="h-3.5 w-3.5 text-slate-500" />
-                    <span>Workspace Settings</span>
-                  </button>
+                <div className="py-1">
+                  {[
+                    { label: "My Profile", icon: User, href: "/dashboard/profile" },
+                    { label: "Billing", icon: CreditCard, href: "/dashboard/billing" },
+                    { label: "Settings", icon: Settings, href: "/dashboard/settings" },
+                    { label: "Affiliate", icon: Link2, href: "/dashboard/affiliate" },
+                    { label: "Help Center", icon: HelpCircle, href: "/dashboard/help" },
+                  ].map((item, idx) => {
+                    const Icon = item.icon;
+                    return (
+                      <button 
+                        key={idx}
+                        onClick={() => {
+                          setShowProfileMenu(false);
+                          window.location.href = item.href;
+                        }}
+                        className="w-full flex items-center space-x-3 px-4 py-2.5 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#222840] hover:text-slate-900 dark:hover:text-white transition-colors text-left cursor-pointer group"
+                      >
+                        <Icon className="h-[18px] w-[18px] text-slate-400 dark:text-slate-400 group-hover:text-slate-500 dark:group-hover:text-slate-300 transition-colors" strokeWidth={1.5} />
+                        <span>{item.label}</span>
+                      </button>
+                    )
+                  })}
+                </div>
+                <div className="border-t border-slate-100 dark:border-[#2A314A] py-1">
                   <button 
                     onClick={logout}
-                    className="w-full flex items-center space-x-2 px-3 py-2 rounded-lg text-xs text-rose-500 dark:text-rose-450 hover:bg-rose-500/10 transition-colors text-left cursor-pointer"
+                    className="w-full flex items-center space-x-3 px-4 py-2.5 text-sm text-rose-500 dark:text-[#E95B5B] hover:bg-rose-50 dark:hover:bg-[#2A2030] transition-colors text-left cursor-pointer group"
                   >
-                    <LogOut className="h-3.5 w-3.5 text-rose-500" />
-                    <span>Sign Out</span>
+                    <LogOut className="h-[18px] w-[18px] text-rose-500 dark:text-[#E95B5B] group-hover:text-rose-600" strokeWidth={1.5} />
+                    <span>Log out</span>
                   </button>
                 </div>
               </div>
