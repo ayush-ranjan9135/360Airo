@@ -518,25 +518,6 @@ function LoginFormView({
             </CTAButton>
           </div>
 
-          {/* Demo hint */}
-          <div style={{ 
-            background: isDark ? "rgba(99,102,241,0.05)" : "rgba(99,102,241,0.03)", 
-            borderWidth: "1px", borderStyle: "solid", 
-            borderColor: isDark ? "rgba(99,102,241,0.15)" : "rgba(99,102,241,0.2)", 
-            transition: TS 
-          }}
-            className="flex items-center justify-between px-4 py-3 rounded-xl mt-4 group hover:border-indigo-500/40 transition-colors">
-            <div className="flex items-center gap-2.5">
-              <span className="h-2 w-2 rounded-full bg-indigo-500 shadow-[0_0_8px_rgba(99,102,241,0.8)] animate-pulse shrink-0" />
-              <span style={{ color: t.textSub, transition: TS }} className="text-[11px] font-medium tracking-wide">
-                Demo: ayushranjan9531@gmail.com / Ayush@123
-              </span>
-            </div>
-            <button type="button" onClick={onFillDemo}
-              className="text-[11px] font-bold text-indigo-500 hover:text-indigo-400 hover:bg-indigo-500/10 px-2.5 py-1 rounded-md transition-all cursor-pointer flex items-center gap-1">
-              Fill <ArrowRight className="h-3 w-3" />
-            </button>
-          </div>
         </form>
       </FormCard>
     </motion.div>
