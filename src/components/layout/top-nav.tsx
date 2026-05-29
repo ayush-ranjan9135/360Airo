@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useAuth } from "@/lib/auth-context";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "@/lib/theme-context";
 import { 
   Bell, 
@@ -27,6 +27,7 @@ interface TopNavProps {
 export function TopNav({ onSearchClick, onMobileMenuToggle }: TopNavProps) {
   const { user, logout } = useAuth();
   const pathname = usePathname();
+  const router = useRouter();
   const { isDark, toggle, TS } = useTheme();
   const [showProfileMenu, setShowProfileMenu] = React.useState(false);
 
@@ -181,7 +182,7 @@ export function TopNav({ onSearchClick, onMobileMenuToggle }: TopNavProps) {
                         key={idx}
                         onClick={() => {
                           setShowProfileMenu(false);
-                          window.location.href = item.href;
+                          router.push(item.href);
                         }}
                         className="w-full flex items-center space-x-3 px-4 py-2.5 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#222840] hover:text-slate-900 dark:hover:text-white transition-colors text-left cursor-pointer group"
                       >

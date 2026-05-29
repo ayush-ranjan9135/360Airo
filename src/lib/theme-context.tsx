@@ -77,17 +77,32 @@ export const LIGHT = {
 };
 
 export type T = typeof DARK;
+/**
+ * Theme transition styles applied to various elements.
+ */
 export const TS = "background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease";
 
+/**
+ * Context payload containing the current theme state and CSS variables.
+ */
 interface ThemeContextType {
+  /** True if the active theme is dark mode */
   isDark: boolean;
+  /** Toggles between light and dark mode */
   toggle: () => void;
+  /** Current theme palette (t for tokens) */
   t: T;
+  /** Global transition string */
   TS: string;
 }
 
 const ThemeContext = React.createContext<ThemeContextType | undefined>(undefined);
 
+/**
+ * ThemeProvider wraps the application and syncs the theme with localStorage and system preferences.
+ * 
+ * @param children Application tree to be wrapped
+ */
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [isDark, setIsDark] = React.useState<boolean>(true); // Default to Dark Mode (Night)
   const [mounted, setMounted] = React.useState(false);
@@ -129,6 +144,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
+/**
+ * Hook to consume the ThemeContext.
+ * Must be used within a ThemeProvider.
+ * 
+ * @returns {ThemeContextType} The active theme context
+ */
 export function useTheme() {
   const context = React.useContext(ThemeContext);
   if (context === undefined) {

@@ -19,15 +19,33 @@ import {
 } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
 
+/**
+ * ProfilePage Component
+ * 
+ * Displays the user's profile overview, statistics, and monthly quota.
+ * 
+ * Data Loading Strategy:
+ * - Currently integrates with \`useAuth\` to retrieve the authenticated \`user\` object.
+ * - In a production scenario, additional data (like usage metrics and quotas) 
+ *   would be fetched dynamically from a backend API (e.g., via SWR or React Query).
+ * - For now, these statistics (emails sent, monthly quota, etc.) are mocked in the UI.
+ */
 export default function ProfilePage() {
   const { user } = useAuth();
   
-  // Animation variants
+  /**
+   * Framer Motion Animation Orchestration
+   * 
+   * We use a parent container variant (\`container\`) combined with \`staggerChildren\`
+   * to create a cascading entrance effect for the profile sections.
+   * As the parent animates to "show", it sequentially triggers the "show" variant
+   * of each child \`motion.div\` mapped with the \`item\` variant.
+   */
   const container: Variants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
-      transition: { staggerChildren: 0.1 }
+      transition: { staggerChildren: 0.1 } // Delays each child animation by 100ms
     }
   };
 

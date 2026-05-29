@@ -2,14 +2,26 @@ import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cn } from "@/lib/utils";
 
+/**
+ * Props for the Button component.
+ * Extends standard HTML button attributes.
+ */
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  /** Renders the button as its child component (e.g., inside a Link) if true */
   asChild?: boolean;
+  /** Visual variant style of the button */
   variant?: "primary" | "secondary" | "outline" | "ghost" | "link" | "destructive" | "premium";
+  /** Size variant of the button */
   size?: "sm" | "md" | "lg" | "icon";
+  /** Disables the button and shows a loading spinner if true */
   isLoading?: boolean;
 }
 
+/**
+ * A highly customizable Button component with built-in loading states
+ * and variant styling.
+ */
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = "primary", size = "md", asChild = false, isLoading, children, disabled, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";

@@ -1,11 +1,19 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
+/**
+ * Props for the main Card container.
+ */
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Applies a glassmorphism effect if true */
   glass?: boolean;
+  /** Applies a subtle glowing border on hover if true */
   hoverGlow?: boolean;
 }
 
+/**
+ * Main wrapper for the Card component family.
+ */
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
   ({ className, glass, hoverGlow, ...props }, ref) => (
     <div
@@ -22,6 +30,9 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
 );
 Card.displayName = "Card";
 
+/**
+ * Header section of the Card.
+ */
 const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
     <div
@@ -33,6 +44,9 @@ const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDiv
 );
 CardHeader.displayName = "CardHeader";
 
+/**
+ * Title text within the CardHeader.
+ */
 const CardTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLHeadingElement>>(
   ({ className, ...props }, ref) => (
     <h3
@@ -44,6 +58,9 @@ const CardTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HT
 );
 CardTitle.displayName = "CardTitle";
 
+/**
+ * Subtitle or description text within the CardHeader.
+ */
 const CardDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(
   ({ className, ...props }, ref) => (
     <p
@@ -55,6 +72,9 @@ const CardDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttribu
 );
 CardDescription.displayName = "CardDescription";
 
+/**
+ * Main content area of the Card.
+ */
 const CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
     <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
@@ -62,6 +82,9 @@ const CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDi
 );
 CardContent.displayName = "CardContent";
 
+/**
+ * Footer section of the Card. Usually contains action buttons.
+ */
 const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
     <div

@@ -3,6 +3,13 @@
 import React, { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
+/**
+ * A highly interactive card wrapper that responds to mouse movement
+ * by tilting the element in 3D space using Framer Motion springs.
+ * 
+ * @param children The content to be rendered inside the tilt card
+ * @param className Optional CSS classes for the outer container
+ */
 export const TiltCard = ({ 
   children, 
   className = "" 
